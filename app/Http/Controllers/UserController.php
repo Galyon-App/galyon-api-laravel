@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UserMeta;
-use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Tymon\JWTAuth\Exceptions\UserNotDefinedException;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Webpatser\Uuid\Uuid;
 
@@ -306,5 +306,30 @@ class UserController extends Controller
             ], 201);
         }
 
+    }
+
+    /**
+     * Verify the blank request with the bearer token passed.
+     * @param $request
+     * @return mixed
+     */
+    public function verify(Request $request) {
+        try {
+            $user = auth()->userOrFail();
+            return response()->json([
+                'success' => false,
+                'data' => $user
+            ]);
+        } catch(UserNotDefinedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token is not valid'
+            ]);
+        }
+    }
+
+    protected function guard()
+    {
+        return Auth::guard();
     }
 }
