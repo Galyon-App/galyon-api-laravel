@@ -136,7 +136,9 @@ class UserController extends Controller
             'success'=>true,
             'id'=>$user->id,
             'uuid'=>(string)$user->uuid,
-            'token'=>$token
+            'token'=>$token,
+            'token_type' => 'bearer',
+            'token_validity' => $this->guard()->factory()->getTTL() * 60
         ], 200);
     }
 
@@ -297,7 +299,9 @@ class UserController extends Controller
                 'success'=>true,
                 'id'=>$user->id,
                 'uuid'=>(string)$user->uuid,
-                'token'=>$token
+                'token'=>$token,
+                'token_type' => 'bearer',
+                'token_validity' => $this->guard()->factory()->getTTL() * 60
             ], 200);
         } else {
             return response()->json([
@@ -313,7 +317,7 @@ class UserController extends Controller
      * @param $request
      * @return mixed
      */
-    public function verify(Request $request) {
+    public function verify() {
         try {
             $user = auth()->userOrFail();
             return response()->json([
@@ -328,6 +332,68 @@ class UserController extends Controller
         }
     }
 
+    /**
+     * Log the user out (Invalidate the token).
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function logout()
+    {
+        auth()->logout();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Successfully logged out'
+        ]);
+    }
+
+    /**
+     * Refresh a token and return a new one.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function refresh()
+    {
+        try {
+            $user = auth()->userOrFail();
+            return response()->json([
+                'success' => true,
+                'token' => auth()->refresh(),
+                'token_type' => 'bearer',
+                'token_validity' => $this->guard()->factory()->getTTL() * 60
+            ]);
+        } catch(UserNotDefinedException $e) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token is not valid'
+            ]);
+        }
+    }
+
+    /**
+     * Get the authenticated User.
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function profile()
+    {
+        if(!$user = auth()->user()) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Token is invalid'
+            ]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $user
+        ]);
+    }
+
+    /**
+     * User authentication guard.
+     * @return mixed
+     */
     protected function guard()
     {
         return Auth::guard();
