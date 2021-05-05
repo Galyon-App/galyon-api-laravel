@@ -9,7 +9,9 @@
 
 ## Getting Started
 
-- STEP 1: Configure environment for mysql config and run ```php artisan migrate```
+- STEP 1: Generate fresh app secret key: ```php artisan key:generate```
+- STEP 2: Generate fresh jwt secret key: ```php artisan jwt:secret```
+- STEP 3: Configure environment for mysql config and run ```php artisan migrate```
 
 ## Generate New Secret for JWT
 ```
