@@ -66,8 +66,8 @@ class User extends Authenticatable implements JWTSubject
     /**
      * Setup table relationship to user metas.
      */
-    public function user_metas()
+    public function credentials()
     {
-        return $this->hasMany(UserMeta::class);
+        return $this->hasMany(UsersCredential::class);
     }
 }

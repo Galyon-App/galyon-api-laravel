@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use App\Models\UserMeta;
+use App\Models\UsersCredential;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +71,7 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
+        $user_credentials_table = (new UsersCredential)->getTable();
         $validator = Validator::make($request->all(), [
             'usercred' => 'required|string|min:4',
             'password' => 'required|string|min:4'
@@ -85,7 +86,7 @@ class UserController extends Controller
 
         if(filter_var( $request->usercred, FILTER_VALIDATE_EMAIL )) {
             $user = DB::table('users')
-                ->join('user_metas', 'users.uuid', '=', 'user_metas.uuid')
+                ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                 ->where('meta_key', 'email')
                 ->where('meta_val', $request->usercred)
                 ->select('users.id', 'users.uuid', 'users.password')
@@ -94,7 +95,7 @@ class UserController extends Controller
         } else {
             if($this->is_phone($request->usercred)) {
                 $user = DB::table('users')
-                    ->join('user_metas', 'users.uuid', '=', 'user_metas.uuid')
+                    ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                     ->where('meta_key', 'phone')
                     ->where('meta_val', $request->usercred)
                     ->select('users.id', 'users.uuid', 'users.password')
@@ -102,7 +103,7 @@ class UserController extends Controller
                     ->first();
             } else {
                 $user = DB::table('users')
-                    ->join('user_metas', 'users.uuid', '=', 'user_metas.uuid')
+                    ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                     ->where('meta_key', 'username')
                     ->where('meta_val', $request->usercred)
                     ->select('users.id', 'users.uuid', 'users.password')
@@ -149,8 +150,10 @@ class UserController extends Controller
      */
     public function register(Request $request)
     {
+        $user_credentials_table = (new UsersCredential)->getTable();
+
         if(isset($request->uname)) {
-            $uname_exist = DB::table('user_metas')
+            $uname_exist = DB::table($user_credentials_table)
                 ->where('meta_key', 'username')
                 ->where('meta_val', $request->uname)
                 ->exists();
@@ -176,7 +179,7 @@ class UserController extends Controller
         }
 
         if(isset($request->phone)) {
-            $phone_exist = DB::table('user_metas')
+            $phone_exist = DB::table($user_credentials_table)
                 ->where('meta_key', 'phone')
                 ->where('meta_val', $request->phone)
                 ->exists();
@@ -222,7 +225,7 @@ class UserController extends Controller
         }
 
         if(isset($request->email)) {
-            $email_exist = DB::table('user_metas')
+            $email_exist = DB::table($user_credentials_table)
                 ->where('meta_key', 'email')
                 ->where('meta_val', $request->email)
                 ->exists();
@@ -265,7 +268,7 @@ class UserController extends Controller
             ));
 
             if(isset($uname)) {
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid' => $user->uuid,
                     'meta_key' => 'username',
                     'meta_val' => $uname,
@@ -273,7 +276,7 @@ class UserController extends Controller
             }
 
             if(isset($phone)) {
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid' => $user->uuid,
                     'meta_key' => 'phone',
                     'meta_val' => $phone,
@@ -281,7 +284,7 @@ class UserController extends Controller
             }
 
             if(isset($email)) {
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid' => $user->uuid,
                     'meta_key' => 'email',
                     'meta_val' => $email,

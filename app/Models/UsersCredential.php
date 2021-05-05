@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class UserMeta extends Model
+class UsersCredential extends Model
 {
     use HasFactory;
 
@@ -19,4 +19,6 @@ class UserMeta extends Model
         'meta_key',
         'meta_val',
     ];
+
+
 }
