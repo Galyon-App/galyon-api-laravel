@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\UsersCredential;
+use App\Models\UsersMeta;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -71,6 +72,7 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
+        $user_table = (new User)->getTable();
         $user_credentials_table = (new UsersCredential)->getTable();
         $validator = Validator::make($request->all(), [
             'usercred' => 'required|string|min:4',
@@ -85,7 +87,7 @@ class UserController extends Controller
         }
 
         if(filter_var( $request->usercred, FILTER_VALIDATE_EMAIL )) {
-            $user = DB::table('users')
+            $user = DB::table($user_table)
                 ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                 ->where('meta_key', 'email')
                 ->where('meta_val', $request->usercred)
@@ -94,7 +96,7 @@ class UserController extends Controller
                 ->first();
         } else {
             if($this->is_phone($request->usercred)) {
-                $user = DB::table('users')
+                $user = DB::table($user_table)
                     ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                     ->where('meta_key', 'phone')
                     ->where('meta_val', $request->usercred)
@@ -102,7 +104,7 @@ class UserController extends Controller
                     ->get()
                     ->first();
             } else {
-                $user = DB::table('users')
+                $user = DB::table($user_table)
                     ->join($user_credentials_table, 'users.uuid', '=', $user_credentials_table.'.uuid')
                     ->where('meta_key', 'username')
                     ->where('meta_val', $request->usercred)
@@ -250,6 +252,22 @@ class UserController extends Controller
             $email = $request->email;
         }
 
+        if(isset($request->fname) || isset($request->lname)) {
+            $name_validator = Validator::make($request->all(), [
+                'fname' => 'required|string|between:2,100',
+                'lname' => 'required|string|between:2,100',
+            ]);
+
+            if($name_validator->fails()) {
+                return response()->json([
+                    'success'=>false,
+                    'message'=>$name_validator->errors()
+                ], 201);
+            }
+            $fname = $request->fname;
+            $lname = $request->lname;
+        }
+
         if(isset($uname) || isset($phone) || isset($email)) {
             $password_validator = Validator::make($request->all(), [
                 'password' => 'required|string|confirmed|min:5',
@@ -288,6 +306,20 @@ class UserController extends Controller
                     'uuid' => $user->uuid,
                     'meta_key' => 'email',
                     'meta_val' => $email,
+                ));
+            }
+
+            if(isset($fname) && isset($lname)) {
+                UsersMeta::create(array(
+                    'uuid' => $user->uuid,
+                    'meta_key' => 'fname',
+                    'meta_val' => $fname,
+                ));
+
+                UsersMeta::create(array(
+                    'uuid' => $user->uuid,
+                    'meta_key' => 'lname',
+                    'meta_val' => $lname,
                 ));
             }
 
@@ -387,9 +419,33 @@ class UserController extends Controller
             ]);
         }
 
+        $user_table = (new User)->getTable();
+        $users_metas_table = (new UsersMeta())->getTable();
+
+        $data = DB::table($user_table)
+            ->select('id', 'uuid')
+            ->get()
+            ->first();
+
+        $fname = DB::table($users_metas_table)
+            ->where('meta_key', '=', 'fname')
+            ->select('meta_val')
+            ->get()
+            ->pluck('meta_val')
+            ->first();
+        $data->fname = $fname;
+
+        $lname = DB::table($users_metas_table)
+            ->where('meta_key', '=', 'lname')
+            ->select('meta_val')
+            ->get()
+            ->pluck('meta_val')
+            ->first();
+        $data->lname = $lname;
+
         return response()->json([
             'success' => true,
-            'data' => $user
+            'data' => $data
         ]);
     }
 
