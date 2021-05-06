@@ -1,13 +1,32 @@
 {
-  "appId": "io.ionic.starter",
+  "appId": "app.galyon.prime",
   "appName": "galyon",
   "bundledWebRuntime": false,
   "npmClient": "npm",
   "webDir": "www",
   "plugins": {
     "SplashScreen": {
-      "launchShowDuration": 0
+      "launchAutoHide": true,
+      "backgroundColor": "#eb6363",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "splashFullScreen": true,
+      "splashImmersive": true
     }
   },
-  "cordova": {}
+  "cordova": {
+    "preferences": {
+      "ScrollEnabled": "false",
+      "android-minSdkVersion": "22",
+      "BackupWebStorage": "none",
+      "SplashMaintainAspectRatio": "true",
+      "FadeSplashScreenDuration": "300",
+      "SplashShowOnlyFirstTime": "false",
+      "SplashScreen": "screen",
+      "SplashScreenDelay": "3000",
+      "loadUrlTimeoutValue": "700000",
+      "CordovaWebViewEngine": "CDVWKWebViewEngine",
+      "WKWebViewOnly": "true"
+    }
+  }
 }
