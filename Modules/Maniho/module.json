@@ -1,0 +1,13 @@
+{
+    "name": "Maniho",
+    "alias": "maniho",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Maniho\\Providers\\ManihoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
