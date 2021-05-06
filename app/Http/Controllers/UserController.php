@@ -72,8 +72,6 @@ class UserController extends Controller
      */
     public function login(Request $request)
     {
-        $user_table = (new User)->getTable();
-        $user_credentials_table = (new UsersCredential)->getTable();
         $validator = Validator::make($request->all(), [
             'usercred' => 'required|string|min:4',
             'password' => 'required|string|min:4'
@@ -85,6 +83,9 @@ class UserController extends Controller
                 'message'=>"Invalid credential"
             ], 201);
         }
+
+        $user_table = (new User)->getTable();
+        $user_credentials_table = (new UsersCredential)->getTable();
 
         if(filter_var( $request->usercred, FILTER_VALIDATE_EMAIL )) {
             $user = DB::table($user_table)

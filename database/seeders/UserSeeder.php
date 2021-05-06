@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use App\Models\UserMeta;
+use App\Models\UsersCredential;
 use Illuminate\Database\Seeder;
 use Faker\Generator;
 use Illuminate\Container\Container;
@@ -48,19 +49,19 @@ class UserSeeder extends Seeder
             ->count(10)
             ->create()
             ->each(function($user) {
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid'=>$user->uuid,
                     'meta_key'=>'uname',
                     'meta_val'=> $this->faker->unique()->userName()
                 ));
 
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid'=>$user->uuid,
                     'meta_key'=>'phone',
                     'meta_val'=> $this->faker->unique()->phoneNumber()
                 ));
 
-                UserMeta::create(array(
+                UsersCredential::create(array(
                     'uuid'=>$user->uuid,
                     'meta_key'=>'email',
                     'meta_val'=> $this->faker->unique()->safeEmail()
