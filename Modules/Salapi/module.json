@@ -1,0 +1,13 @@
+{
+    "name": "Salapi",
+    "alias": "salapi",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Salapi\\Providers\\SalapiServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
