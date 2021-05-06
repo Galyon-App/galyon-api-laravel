@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -30,6 +31,7 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
     //Address related routes
     Route::post('/address/getByUuid', [AddressController::class, 'getByUuid']);
+    Route::post('/settings/getByGuard', [SettingController::class, 'getByGuard']);
 });
 /* END Protected Routes */
 
