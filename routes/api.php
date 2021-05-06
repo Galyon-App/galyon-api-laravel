@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AddressController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -21,10 +22,14 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /* START Protected Routes */
 Route::group(['middleware' => ['jwt.auth']], function () {
+    //Users related routes
     Route::post('/user/verify', [UserController::class, 'verify']);
     Route::post('/user/logout', [UserController::class, 'logout']);
     Route::post('/user/auth/refresh', [UserController::class, 'refresh']);
     Route::post('/user/profile', [UserController::class, 'profile']);
+
+    //Address related routes
+    Route::post('/address/getByUuid', [AddressController::class, 'getByUuid']);
 });
 /* END Protected Routes */
 
