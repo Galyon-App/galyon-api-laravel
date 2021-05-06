@@ -16,7 +16,7 @@ class AddUuidToUsers extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('uuid', 50)
                 ->after('id')
-                ->unique('users_uuid_unique');
+                ->index('users_uuid_unique');
         });
     }
 

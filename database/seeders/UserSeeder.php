@@ -3,7 +3,6 @@
 namespace Database\Seeders;
 
 use App\Models\User;
-use App\Models\UserMeta;
 use App\Models\UsersCredential;
 use Illuminate\Database\Seeder;
 use Faker\Generator;
