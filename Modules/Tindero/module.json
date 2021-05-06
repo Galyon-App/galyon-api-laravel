@@ -1,0 +1,13 @@
+{
+    "name": "Tindero",
+    "alias": "tindero",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Tindero\\Providers\\TinderoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
