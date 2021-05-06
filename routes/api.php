@@ -21,18 +21,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /* START Protected Routes */
 Route::group(['middleware' => ['jwt.auth']], function () {
-    //Route::resource('user', UserController::class);
+    Route::post('/user/verify', [UserController::class, 'verify']);
+    Route::post('/user/logout', [UserController::class, 'logout']);
+    Route::post('/user/auth/refresh', [UserController::class, 'refresh']);
+    Route::post('/user/profile', [UserController::class, 'profile']);
 });
-
 /* END Protected Routes */
 
 /* START Auth Routes */
 Route::group(['middleware' => 'api', 'prefix' => 'auth'], function ($router) {
     Route::post('/login', [UserController::class, 'login']);
     Route::post('/register', [UserController::class, 'register']);
-    Route::post('/verify', [UserController::class, 'verify']);
-    Route::post('/logout', [UserController::class, 'logout']);
-    Route::post('/refresh', [UserController::class, 'refresh']);
-    Route::post('/profile', [UserController::class, 'profile']);
 });
 /* END Auth Routes */
