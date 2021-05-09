@@ -5,14 +5,53 @@ namespace Modules\Tindero\Http\Controllers;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Modules\Tindero\Entities\CitiesAssign;
 use Modules\Tindero\Entities\Store;
 use Modules\Tindero\Entities\StoresCategoriesAssign;
 use Modules\Tindero\Entities\StoresMeta;
 
 class StoreController extends Controller
 {
+    /**
+     * Get all store within a city.
+     */
+    public function getByCity(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'uuid' => 'required|string|min:36',
+        ]);
+
+        if($validator->fails()) {
+            return response()->json([
+                'success'=>false,
+                'message'=>"Invalid input fields"
+            ], 201);
+        }
+
+        $assings = CitiesAssign::where('city_uuid', $request->uuid)
+            ->select('store_uuid AS uuid')
+            ->get()
+            ->each(function ($store) {
+                $stores = Store::where('uuid', $store->uuid)
+                    ->select('title', 'desc')
+                    ->first();
+                $store->title = $stores->title;
+                $store->desc = $stores->desc;
+
+                $metas = StoresMeta::where('store_uuid', $store->uuid)
+                    ->select('meta_key', 'meta_val')
+                    ->get();
+                foreach($metas as $meta) {
+                    $store[$meta->meta_key] = $meta->meta_val;
+                }
+            });
+
+        return response()->json([
+            'data'=>$assings
+        ], 200);
+    }
+
     /**
      * Get all store that is involve in this category.
      */
