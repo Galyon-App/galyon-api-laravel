@@ -1,0 +1,13 @@
+{
+    "name": "Dyaryo",
+    "alias": "dyaryo",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Dyaryo\\Providers\\DyaryoServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
