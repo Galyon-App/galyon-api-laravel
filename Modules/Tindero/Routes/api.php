@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Tindero\Http\Controllers\CityController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +14,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/tindero', function (Request $request) {
-    return $request->user();
+/* START Protected Routes */
+Route::group(['middleware' => ['jwt.auth']], function () {
+
 });
+/* END Protected Routes */
+
+//Available Cities related routes
+Route::post('/cities/active', [CityController::class, 'active']);
