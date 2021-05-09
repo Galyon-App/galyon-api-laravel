@@ -22,3 +22,4 @@ Route::group(['middleware' => ['jwt.auth']], function () {
 
 //Available Cities related routes
 Route::post('/cities/active', [CityController::class, 'active']);
+Route::post('/cities/getById', [CityController::class, 'getById']);
