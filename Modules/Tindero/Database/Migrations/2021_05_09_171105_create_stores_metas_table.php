@@ -15,7 +15,7 @@ class CreateStoresMetasTable extends Migration
     {
         Schema::create('stores_metas', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('stoe_uuid', 36);
+            $table->string('store_uuid', 36);
             $table->string('meta_key', 255);
             $table->longText('meta_val');
             $table->timestamps();
