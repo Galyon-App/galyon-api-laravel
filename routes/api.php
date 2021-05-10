@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AddressController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
@@ -28,6 +29,8 @@ Route::group(['middleware' => ['jwt.auth']], function () {
     Route::post('/user/logout', [UserController::class, 'logout']);
     Route::post('/user/auth/refresh', [UserController::class, 'refresh']);
     Route::post('/user/profile', [UserController::class, 'profile']);
+
+    Route::post('/files/upload', [FileController::class, 'upload']);
 
     //Address related routes
     Route::post('/address/getByUuid', [AddressController::class, 'getByUuid']);
