@@ -1,0 +1,13 @@
+{
+    "name": "Galyon",
+    "alias": "galyon",
+    "description": "",
+    "keywords": [],
+    "priority": 0,
+    "providers": [
+        "Modules\\Galyon\\Providers\\GalyonServiceProvider"
+    ],
+    "aliases": {},
+    "files": [],
+    "requires": []
+}
