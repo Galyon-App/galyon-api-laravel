@@ -1,0 +1,26 @@
+
+<ion-content>
+  <div class="main_content">
+
+    <div class="iconDiv">
+      <img src="assets/images/icon.png" alt="" class="icon">
+    </div>
+    <div class="form_div">
+      <ion-label class="main_head"> {{util.getString('Reset Password')}} </ion-label>
+      <div>
+        <ion-input type="email" [placeholder]="util.getString('Username')" [(ngModel)]="username">
+          <ion-icon name="person" slot="icon-only"></ion-icon>
+        </ion-input>
+
+        <ion-button expand="block" [disabled]="isBusy" (click)="reset()">
+          <span *ngIf="!isBusy"> {{util.getString('Reset Now')}} </span>
+          <ion-spinner name="circular" *ngIf="isBusy"></ion-spinner>
+        </ion-button>
+
+        <ion-label class="signup_back" (click)="back()">
+          <span class="signup_span"> {{util.getString('Go Back')}} </span>
+        </ion-label>
+      </div>
+    </div>
+  </div>
+</ion-content>
