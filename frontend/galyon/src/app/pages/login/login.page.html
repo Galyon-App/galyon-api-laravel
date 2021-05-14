@@ -1,0 +1,30 @@
+<ion-content>
+  <div class="main_content">
+    <div class="iconDiv">
+      <img src="assets/images/logo.png" alt="" class="icon" style="width: 185px;">
+    </div>
+    <div class="form_div">
+      <ion-label class="input_title"> {{util.getString('Welcome')}} </ion-label>
+      <ion-input type="email" [placeholder]="util.getString('Username')" [(ngModel)]="usercred">
+        <ion-icon name="person" slot="icon-only"></ion-icon>
+      </ion-input>
+      <ion-input type="password" [placeholder]="util.getString('Password')" [(ngModel)]="password">
+        <ion-icon name="key" slot="icon-only"></ion-icon>
+      </ion-input>
+      <ion-label class="forgot" (click)="reset()"> {{util.getString('Forgot Password')}}
+      </ion-label>
+      <ion-button expand="block" [disabled]="isBusy" (click)="login()">
+        <span> {{util.getString('SIGN IN')}} </span>
+        <ion-spinner name="circular" *ngIf="isBusy"></ion-spinner>
+      </ion-button>
+
+      <ion-label class="signup_label" (click)="register()"> {{util.getString("Don't have an account ?")}} <span
+          class="signup_span"> {{util.getString('Sign Up')}} </span>
+      </ion-label>
+
+      <ion-label class="signup_back" (click)="back()">
+        <span class="signup_span"> {{util.getString('Go Back')}} </span>
+      </ion-label>
+    </div>
+  </div>
+</ion-content>
