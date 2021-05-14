@@ -59,6 +59,6 @@ export class ApiService {
     }
 
     const param = is_url_encode ? this.toUrlEncoded(body) : body;
-    return this.http.post(this.baseUrl + path, param, options);
+    return this.http.post(this.baseUrl +'/'+ path, param, options);
   }
 }
