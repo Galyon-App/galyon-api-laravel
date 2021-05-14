@@ -1,0 +1,139 @@
+.main_content {
+  width: 100%;
+  padding: 30px;
+  position: absolute;
+  top: 45%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+  ion-icon {
+    color: var(--ion-color-primary);
+    font-size: 20px;
+    padding: 10px;
+  }
+
+  .iconDiv {
+    text-align: center;
+    .icon {
+      width: 60px;
+    }
+  }
+
+  .form_div {
+    padding: 25px;
+    position: relative;
+
+    .main_head {
+      display: block;
+      text-align: left;
+      color: var(--ion-color-dark);
+      font-weight: 400;
+      font-size: 20px;
+      margin: 10px;
+    }
+
+    ion-label {
+      font-size: 12px;
+      color: var(--ion-color-dark);
+    }
+
+    .forgot {
+      display: block;
+      text-align: right;
+      color: var(--ion-color-dark);
+    }
+
+    ion-input {
+      // background: var(--ion-color-primary);
+      border: 1px solid var(--ion-color-dark-tint);
+      color: var(--ion-color-dark);
+      border-radius: 10px;
+      margin-bottom: 17px;
+      --padding-start: 8px;
+      --padding-end: 10px;
+    }
+
+    ion-item {
+      border: 1px solid var(--ion-color-dark-tint);
+      border-radius: 10px;
+      ion-label {
+        color: var(--ion-color-dark-lint) !important;
+      }
+      ion-icon {
+        padding: 0px !important;
+      }
+    }
+
+    ion-button {
+      margin-top: 20px;
+      --border-radius: 5px;
+      --background: var(--ion-color-primary);
+      --color: var(--ion-color-primary-contrast);
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .lbl {
+      margin-top: 20px;
+      color: var(--ion-color-dark);
+      display: block;
+      text-align: center;
+    }
+
+    .signup_span {
+      color: var(--ion-color-dark);
+      font-weight: 600;
+      font-size: 14px;
+    }
+
+    .signup_back {
+      font-weight: bold;
+      font-size: medium;
+      margin-top: 40px;
+      color: var(--ion-color-dark);
+      display: block;
+      text-align: center;
+    }
+
+    .div_chk {
+      width: 100%;
+      margin: 20px 0px;
+      position: relative;
+
+      .lbl_police {
+        font-size: 10px;
+        // color: black;
+        margin-left: 40px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+
+      .span_term {
+        color: var(--ion-color-dark);
+        // opacity: 0.5;
+        margin-right: 10px;
+      }
+
+      .chk {
+        --size: 20px;
+        // --background : transparent !important;
+        --border-radius: 5px !important;
+        --border-color-checked: var(--ion-color-primary);
+      }
+
+      .lbl_by {
+        display: block;
+        font-size: 10px;
+        color: var(--ion-color-dark-contrast);
+        margin-top: 10px;
+      }
+
+      .span_termm {
+        color: var(--ion-color-dark-shade);
+        margin-right: 10px;
+      }
+    }
+  }
+}
