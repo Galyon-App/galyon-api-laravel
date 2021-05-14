@@ -1,6 +1,7 @@
 export const environment = {
   production: true,
-  baseURL: 'https://api.galyon.app/',
+  baseURL: 'https://api.galyon.app',
+  appPrefix: 'galyon_',
   firebase: {
     apiKey: "AIzaSyDBy1btu2_RUN2r4tWTtUY2Zhw4oJsum6E",
     authDomain: "businext-app.firebaseapp.com",
