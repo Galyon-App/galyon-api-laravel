@@ -5,8 +5,8 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-  <p *ngIf="!cities?.length" class="ion-text-center"> {{util.getString('No Cities Found')}} </p>
-  <ion-list>
+  <p *ngIf="!isBusy && !cities?.length" class="ion-text-center"> {{util.getString('No Cities Found')}} </p>
+  <ion-list *ngIf="!isBusy">
     <ion-radio-group [(ngModel)]="uuid">
       <ion-item *ngFor="let item of cities">
         <ion-label>{{item.name}}</ion-label>

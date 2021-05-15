@@ -25,13 +25,14 @@ export class CitiesPage {
     private user: UserService
   ) {
     this.getCities();
-    console.log(this.util.getKeys('city'));
   }
 
   getCities() {
     this.isBusy = true;
+    this.util.showBusy();
     this.api.post('api/cities/active', {}).subscribe((response: any) => {
       this.isBusy = false;
+      this.util.hideBusy();
       if (response && response.data.length) {
         this.cities = response.data;
         this.util.setKeys('cities', this.cities)
@@ -40,6 +41,7 @@ export class CitiesPage {
       }
     }, error => {
       this.isBusy = false;
+      this.util.hideBusy();
       this.log.error(error);
       this.util.showMessage(this.util.getString('Something went wrong'), 'danger');
     });
