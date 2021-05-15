@@ -31,25 +31,23 @@ export class RegisterPage {
     private api: ApiService,
     private iab: InAppBrowser,
     public log: LogService,
-  ) {
-    this.dummy = this.util.countrys;
-  }
+  ) { }
 
   register() {
 
     if (!this.check) {
-      this.util.showToast(this.util.getString('Please accept terms and conditions'), 'dark', 'bottom');
+      this.util.showMessage(this.util.getString('Please accept terms and conditions'), 'dark');
       return false;
     }
 
     const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
     if (!emailfilter.test(this.email)) {
-      this.util.showToast(this.util.getString('Please enter valid email'), 'dark', 'bottom');
+      this.util.showMessage(this.util.getString('Please enter valid email'), 'dark');
       return false;
     }
 
     if (!this.fname || !this.lname || !this.email || !this.password) {
-      this.util.showToast(this.util.getString('All Fields are required'), 'dark', 'bottom');
+      this.util.showMessage(this.util.getString('All Fields are required'), 'dark');
       return false;
     }
 
@@ -72,12 +70,12 @@ export class RegisterPage {
         localStorage.setItem(this.util.getPrefix('token'), response.token);
         this.navCtrl.navigateRoot(['home']);
       } else {
-        this.util.errorToast(response.data.message);
+        this.util.showMessage(response.data.message, 'danger');
       }
     }, error => {
       this.isBusy = false;
       this.log.error(error);
-      this.util.errorToast(this.util.getString('Something went wrong'));
+      this.util.showMessage(this.util.getString('Something went wrong'), 'danger');
     });
   }
 

@@ -1,10 +1,3 @@
-/**
- * Name: Galyon
- * Author : BytesCrafter
- * Website : https://bytescrafter.net
- * Created : 01-Jan-2021
- */
-
 import { Injectable } from '@angular/core';
 import { LoadingController, AlertController, ToastController, NavController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
@@ -16,53 +9,11 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root'
 })
 export class UtilService {
-  loader: any;
+
   isLoading = false;
-  details: any;
-  private address = new Subject<any>();
-  private coupon = new Subject<any>();
-  private review = new Subject<any>();
-  orders: any;
-  private changeLocation = new Subject<any>();
-  private loggedIn = new Subject<any>();
-  private profile = new Subject<any>();
-  private newOrder = new Subject<any>();
   public appPage: any[] = [];
-  public appClosed: boolean;
-  public appClosedMessage: any = '';
   public translations: any[] = [];
-  public direction: any;
-  public currecny: any;
-  public cside: any;
-  public userInfo: any;
-  public selectedCity = new Subject<any>();
-  public city: any;
 
-  public stripe: any;
-  public stripeCode: any;
-
-  public haveFav: boolean;
-  public favIds: any[] = [];
-
-  public general: any;
-
-
-  public twillo: any;
-  public logo: any;
-  public delivery: any;
-  public newAddress = new Subject<any>();
-
-  public countrys = [
-    {
-      country_code: 'PH',
-      country_name: 'Philippines',
-      dialling_code: '63'
-    }
-  ];
-
-  public user_login: any = '0';
-  public reset_pwd: any = '0';
-  public active_store: any[] = [];
   constructor(
     public loadingCtrl: LoadingController,
     public alertCtrl: AlertController,
@@ -132,232 +83,98 @@ export class UtilService {
     ];
   }
 
-  publishAddress(data: any) {
-    this.address.next(data);
-  }
-
-  setFav(id) {
-    this.favIds.push(id);
-  }
-
-  removeFav(id) {
-    this.favIds = this.favIds.filter(x => x !== id);
-  }
-
-  publishNewOrder() {
-    this.newOrder.next();
-  }
-
-  subscribeOrder(): Subject<any> {
-    return this.newOrder;
-  }
-
-  publishReview(data: any) {
-    this.review.next(data);
-  }
-
-  publishProfile(data: any) {
-    this.profile.next(data);
-  }
-
-
-  publishNewAddress() {
-    this.newAddress.next();
-  }
-
-  subscribeNewAddress(): Subject<any> {
-    return this.newAddress;
-  }
-
-  observProfile(): Subject<any> {
-    return this.profile;
-  }
-
-  getReviewObservable(): Subject<any> {
-    return this.review;
-  }
-
-  publishLocation(data) {
-    this.changeLocation.next(data);
-  }
-
-  subscribeLocation(): Subject<any> {
-    return this.changeLocation;
-  }
-
-  publishLoggedIn(data) {
-    this.loggedIn.next(data);
-  }
-
-  subscribeLoggedIn(): Subject<any> {
-    return this.loggedIn;
-  }
-
-  publishCity(data) {
-    this.selectedCity.next(data);
-  }
-
-  subscribeCity(): Subject<any> {
-    return this.selectedCity;
-  }
-
-  getObservable(): Subject<any> {
-    return this.address;
-  }
-
-  publishCoupon(data: any) {
-    this.coupon.next(data);
-  }
-
-  getCouponObservable(): Subject<any> {
-    return this.coupon;
-  }
-
-  setOrders(data) {
-    this.orders = null;
-    this.orders = data;
-  }
-
-  openMenu() {
-    this.menuCtrl.toggle();
-  }
-
-  getKeys(key): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.storage.get(key).then((data) => {
-        resolve(data);
-      }).catch(error => {
-        reject(error);
-      });
-    });
-  }
-
-  clearKeys(key) {
-    this.storage.remove(key);
-  }
-
-  setKeys(key, value): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.storage.set(key, value).then((data) => {
-        resolve(data);
-      }).catch(error => {
-        reject(error);
-      });
-    });
-  }
-
-  gerOrder() {
-    return this.orders;
-  }
-
-  async show(msg?) {
+  /**
+   * Show a loading bubble on screen with optional message parameter.
+   * @param msg
+   * @returns
+   */
+  async showBusy(message?, presentEvent=null, dismissEvent=null) {
     this.isLoading = true;
     return await this.loadingCtrl.create({
-      message: msg,
+      message: message,
       spinner: 'bubbles',
     }).then(a => {
       a.present().then(() => {
-        //console.log('presented');
         if (!this.isLoading) {
-          a.dismiss().then(() => console.log('abort presenting'));
+          a.dismiss().then(() => {
+            if(dismissEvent != null && typeof dismissEvent === 'function') {
+              dismissEvent();
+            }
+          });
+        } else {
+          if(presentEvent != null && typeof presentEvent === 'function') {
+            presentEvent();
+          }
         }
       });
     });
   }
 
-  async hide() {
-    this.isLoading = false;
-    return await this.loadingCtrl.dismiss().then(() => console.log('dismissed'));
-  }
-
-  /*
-    Show Warning Alert Message
-    param : msg = message to display
-    Call this method to show Warning Alert,
-    */
-  async showWarningAlert(msg) {
-    const alert = await this.alertCtrl.create({
-      header: 'Warning',
-      message: msg,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-  async showSimpleAlert(msg) {
-    const alert = await this.alertCtrl.create({
-      header: '',
-      message: msg,
-      buttons: ['OK']
-    });
-
-    await alert.present();
-  }
-
-  /*
-   Show Error Alert Message
-   param : msg = message to display
-   Call this method to show Error Alert,
+  /**
+   * Hide the loading bubble on screen. Check showBusy method on same service.
+   * @param dismissEvent
+   * @returns
    */
-  async showErrorAlert(msg) {
-    const alert = await this.alertCtrl.create({
-      header: 'Error',
-      message: msg,
-      buttons: ['OK']
-    });
+  async hideBusy(dismissEvent=null) {
+    this.isLoading = false;
+    return await this.loadingCtrl.dismiss()
+      .then(() => {
+        if(dismissEvent != null && typeof dismissEvent === 'function') {
+          dismissEvent();
+        }
+      });
+  }
 
+  /**
+   * Show an alert notification with ok button.
+   * @param message
+   * @param header
+   * @param ok
+   */
+  async showAlert(message, header='', ok='OK') {
+    const alert = await this.alertCtrl.create({
+      header: header,
+      message: message,
+      buttons: [ok]
+    });
     await alert.present();
   }
 
-  /*
-     param : email = email to verify
-     Call this method to get verify email
-     */
-  async getEmailFilter(email) {
+  /**
+   * Verify the string if it a valid email.
+   * @param email
+   * @returns
+   */
+  async isValidEmail(email) {
     const emailfilter = /^[\w._-]+[+]?[\w._-]+@[\w.-]+\.[a-zA-Z]{2,6}$/;
     if (!(emailfilter.test(email))) {
-      const alert = await this.alertCtrl.create({
-        header: 'Warning',
-        message: 'Please enter valid email',
-        buttons: ['OK']
-      });
-      await alert.present();
       return false;
     } else {
       return true;
     }
   }
 
-
-  /*
-    Show Toast Message on Screen
-     param : msg = message to display, color= background
-     color of toast example dark,danger,light. position  = position of message example top,bottom
-     Call this method to show toast message
-     */
-
-  async showToast(msg, colors, positon) {
+  /**
+   * Show a n notification that can set the color and position of popup, optionally, you can pass a callback.
+   * @param message string
+   * @param colors dark, danger, success, light
+   * @param duration default = 3 seconds
+   * @param callback default = null
+   */
+  async showMessage(message, colors='dark', duration=3000, callback=null) {
     const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
+      message: message,
+      duration: duration,
       color: colors,
-      position: positon
-    });
-    toast.present();
-  }
-  async shoNotification(msg, colors, positon) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 4000,
-      color: colors,
-      position: positon,
+      position: 'bottom',
       buttons: [
         {
           text: 'Ok',
           role: 'cancel',
           handler: () => {
-            // console.log('Cancel clicked');
+            if(callback !== null && typeof callback === 'function') {
+              callback();
+            }
           }
         }
       ]
@@ -365,25 +182,26 @@ export class UtilService {
     toast.present();
   }
 
-  async errorToast(msg) {
-    const toast = await this.toastCtrl.create({
-      message: msg,
-      duration: 2000,
-    });
-    toast.present();
-  }
-
+  /**
+   * Http status response error to general string message.
+   * @param err
+   */
   apiErrorHandler(err) {
     if (err.status === -1) {
-      this.showErrorAlert('Failed To Connect With Server');
+      this.showAlert('Failed To Connect With Server');
     } else if (err.status === 401) {
-      this.showErrorAlert('Unauthorized Request!');
+      this.showAlert('Unauthorized Request');
       this.navCtrl.navigateRoot('/login');
     } else if (err.status === 500) {
-      this.showErrorAlert('Somethimg Went Wrong..');
+      this.showAlert('Somethimg Went Wrong');
     }
   }
 
+  /**
+   * Try to get a transalation if not null else just return same string.
+   * @param str
+   * @returns
+   */
   getString(str) {
     if (this.translations[str]) {
       return this.translations[str];
@@ -391,7 +209,51 @@ export class UtilService {
     return str;
   }
 
+  /**
+   * Get the key with our global local storage prefix.
+   * @param keyString
+   * @returns
+   */
   getPrefix(keyString) {
     return environment.appPrefix + keyString;
+  }
+
+  /**
+   * Set an item to localStorage.
+   * @param key
+   * @param value
+   * @returns
+   */
+  setKeys(key, value): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.storage.set(this.getPrefix(key), JSON.stringify(value)).then((data) => {
+        resolve(data);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  /**
+   * Get item with a key on localStorage.
+   * @param key
+   * @returns
+   */
+  getKeys(key): Promise<any> {
+    return new Promise<any>((resolve, reject) => {
+      this.storage.get(this.getPrefix(key)).then((data) => {
+        resolve(data);
+      }).catch(error => {
+        reject(error);
+      });
+    });
+  }
+
+  /**
+   * Clear keys of an item on localStorage.
+   * @param key
+   */
+  clearKeys(key) {
+    this.storage.remove(this.getPrefix(key));
   }
 }

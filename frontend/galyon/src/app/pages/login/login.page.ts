@@ -21,15 +21,11 @@ export class LoginPage {
     private api: ApiService,
     public util: UtilService,
     public log: LogService,
-  ) {
-    if (!this.util.user_login || this.util.user_login === '') {
-      this.util.user_login = '0';
-    }
-  }
+  ) { }
 
   login() {
     if (!this.usercred || !this.password) {
-      this.util.showToast(this.util.getString('All Fields are required'), 'dark', 'bottom');
+      this.util.showMessage(this.util.getString('All Fields are required'));
       return false;
     }
 
@@ -43,12 +39,12 @@ export class LoginPage {
         localStorage.setItem(this.util.getPrefix('token'), response.token);
         this.navCtrl.navigateRoot(['home']);
       } else {
-        this.util.errorToast(response.data.message);
+        this.util.showMessage(response.data.message, 'danger');
       }
     }, error => {
       this.isBusy = false;
       this.log.error(error);
-      this.util.errorToast(this.util.getString('Something went wrong'));
+      this.util.showMessage(this.util.getString('Something went wrong'), 'danger');
     });
   }
 

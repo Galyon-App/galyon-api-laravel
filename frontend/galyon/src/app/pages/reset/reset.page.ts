@@ -25,7 +25,7 @@ export class ResetPage {
 
   reset() {
     if (!this.username || this.username != '' ) {
-      this.util.errorToast(this.util.getString('All Field are required'));
+      this.util.showMessage(this.util.getString('All Field are required'));
       return false;
     }
 
@@ -34,14 +34,14 @@ export class ResetPage {
       this.isBusy = false;
 
       if (response && response.success) {
-        this.util.errorToast(this.util.getString('Check your email or phone for key'));
+        this.util.showMessage(this.util.getString('Check your email or phone for key'));
       } else {
-        this.util.errorToast(response.data.message);
+        this.util.showMessage(response.data.message, 'danger');
       }
     }, error => {
       this.isBusy = false;
       this.log.error(error);
-      this.util.errorToast(this.util.getString('Something went wrong'));
+      this.util.showMessage(this.util.getString('Something went wrong'), 'danger');
     });
   }
 
