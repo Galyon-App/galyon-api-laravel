@@ -35,8 +35,8 @@ export class LoginPage {
       console.log(response);
 
       if (response && response.success) {
-        localStorage.setItem(this.util.getPrefix('uuid'), response.uuid);
-        localStorage.setItem(this.util.getPrefix('token'), response.token);
+        this.util.setKeys('uuid', response.uuid);
+        this.util.setKeys('token', response.token);
         this.navCtrl.navigateRoot(['home']);
       } else {
         this.util.showMessage(response.data.message, 'danger');
