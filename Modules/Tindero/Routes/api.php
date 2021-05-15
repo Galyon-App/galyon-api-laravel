@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Http\Request;
+use Modules\Tindero\Http\Controllers\CityController;
+use Modules\Tindero\Http\Controllers\StoreController;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,6 +15,18 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/tindero', function (Request $request) {
-    return $request->user();
+/* START Protected Routes */
+Route::group(['middleware' => ['jwt.auth']], function () {
+
 });
+/* END Protected Routes */
+
+// All about stores
+Route::post('/stores/active', [StoreController::class, 'active']);
+Route::post('/stores/getById', [StoreController::class, 'getById']);
+Route::post('/stores/getByCategory', [StoreController::class, 'getByCategory']);
+Route::post('/stores/getByCity', [StoreController::class, 'getByCity']);
+
+//Available Cities related routes
+Route::post('/cities/active', [CityController::class, 'active']);
+Route::post('/cities/getById', [CityController::class, 'getById']);

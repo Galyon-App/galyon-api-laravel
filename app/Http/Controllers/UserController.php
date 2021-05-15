@@ -138,11 +138,8 @@ class UserController extends Controller
 
         return response()->json([
             'success'=>true,
-            'id'=>$user->id,
             'uuid'=>(string)$user->uuid,
-            'token'=>$token,
-            'token_type' => 'bearer',
-            'token_validity' => $this->guard()->factory()->getTTL() * 60
+            'token'=>$token
         ], 200);
     }
 
@@ -333,11 +330,8 @@ class UserController extends Controller
 
             return response()->json([
                 'success'=>true,
-                'id'=>$user->id,
                 'uuid'=>(string)$user->uuid,
-                'token'=>$token,
-                'token_type' => 'bearer',
-                'token_validity' => $this->guard()->factory()->getTTL() * 60
+                'token'=>$token
             ], 200);
         } else {
             return response()->json([
@@ -394,9 +388,7 @@ class UserController extends Controller
             $user = auth()->userOrFail();
             return response()->json([
                 'success' => true,
-                'token' => auth()->refresh(),
-                'token_type' => 'bearer',
-                'token_validity' => $this->guard()->factory()->getTTL() * 60
+                'token' => auth()->refresh()
             ]);
         } catch(UserNotDefinedException $e) {
             return response()->json([
