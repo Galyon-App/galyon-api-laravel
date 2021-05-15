@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { LoadingController, AlertController, ToastController, NavController, MenuController } from '@ionic/angular';
+import { LoadingController, AlertController, ToastController, NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { Subject } from 'rxjs';
-import { Storage } from '@ionic/storage';
+import { Storage } from '@ionic/storage-angular';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
@@ -11,6 +11,7 @@ import { environment } from 'src/environments/environment';
 export class UtilService {
 
   isLoading = false;
+  private storage: Storage | null = null;
   public appPage: any[] = [];
   public translations: any[] = [];
 
@@ -20,9 +21,9 @@ export class UtilService {
     private toastCtrl: ToastController,
     public router: Router,
     private navCtrl: NavController,
-    private menuCtrl: MenuController,
-    private storage: Storage
+    private _storage: Storage
   ) {
+    this.initialize();
     this.appPage = [
       {
         title: 'Home',
@@ -81,6 +82,14 @@ export class UtilService {
         icn: 'help-circle-outline'
       },
     ];
+  }
+
+  /**
+   * Initialize instance of this util service.
+   */
+  async initialize() {
+    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+    this.storage = await this._storage.create();
   }
 
   /**
@@ -226,7 +235,7 @@ export class UtilService {
    */
   setKeys(key, value): Promise<any> {
     return new Promise<any>((resolve, reject) => {
-      this.storage.set(this.getPrefix(key), JSON.stringify(value)).then((data) => {
+      this.storage.set(this.getPrefix(key), value).then((data) => {
         resolve(data);
       }).catch(error => {
         reject(error);
