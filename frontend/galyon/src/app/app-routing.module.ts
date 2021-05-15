@@ -6,13 +6,12 @@ import { CityGuard } from './guard/city.guard';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'home',
-    pathMatch: 'full'
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
+    canActivate: [CityGuard]
   },
   {
     path: 'home',
     loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
-    canActivate: [CityGuard]
   },
   {
     path: 'login',
@@ -29,6 +28,9 @@ const routes: Routes = [
   {
     path: 'cities',
     loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule),
+  },  {
+    path: 'notfound',
+    loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
 
 ];
