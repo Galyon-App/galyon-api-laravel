@@ -8,20 +8,23 @@ import { LogService } from './log.service';
 })
 export class UserService {
 
-  public cur_city: string = null;
+  public city: any = null;
+  get hasCurrentCity(): boolean {
+    return this.util.localHas('city');
+  }
 
   constructor(
     private api: ApiService,
     private util: UtilService,
     private log: LogService
-  ) { }
+  ) {}
 
   /**
    * Save the current city for this user instance.
    * @param uuid
    */
   setCurrentCity(city) {
-    this.cur_city = city.uuid;
-    this.util.setKeys('city', city);
+    this.city = city;
+    this.util.localSet('city', city.uuid);
   }
 }

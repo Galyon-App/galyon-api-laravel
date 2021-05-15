@@ -71,6 +71,6 @@ export class CartService {
   clearCart() {
     this.log.debug([], 'Clear item on cart.');
     this.cart = [];
-    this.util.clearKeys('cart');
+    this.util.clearKeys();
   }
 }

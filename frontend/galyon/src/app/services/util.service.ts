@@ -88,8 +88,10 @@ export class UtilService {
    * Initialize instance of this util service.
    */
   async initialize() {
-    // If using, define drivers here: await this.storage.defineDriver(/*...*/);
-    this.storage = await this._storage.create();
+    if(!this.storage) {
+      // If using, define drivers here: await this.storage.defineDriver(/*...*/);
+      this.storage = await this._storage.create();
+    }
   }
 
   /**
@@ -207,7 +209,7 @@ export class UtilService {
   }
 
   /**
-   * Try to get a transalation if not null else just return same string.
+   * Try to get a translation if not null else just return same string.
    * @param str
    * @returns
    */
@@ -219,7 +221,7 @@ export class UtilService {
   }
 
   /**
-   * Get the key with our global local storage prefix.
+   * Get the key with our global local Database driver prefix.
    * @param keyString
    * @returns
    */
@@ -228,41 +230,113 @@ export class UtilService {
   }
 
   /**
-   * Set an item to localStorage.
+   * Set an item to local Database driver.
    * @param key
    * @param value
    * @returns
    */
   setKeys(key, value): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.storage.set(this.getPrefix(key), value).then((data) => {
+    return new Promise<any>(async (resolve, reject) => {
+      if(!this.storage) {
+        await this.initialize();
+      }
+      this.storage.set(this.getPrefix(key), value)
+      .then((data) => {
         resolve(data);
-      }).catch(error => {
+      })
+      .catch(error => {
         reject(error);
       });
     });
   }
 
   /**
-   * Get item with a key on localStorage.
+   * Get item with a key on local Database driver.
    * @param key
    * @returns
    */
   getKeys(key): Promise<any> {
-    return new Promise<any>((resolve, reject) => {
-      this.storage.get(this.getPrefix(key)).then((data) => {
+    return new Promise<any>(async (resolve, reject) => {
+      if(!this.storage) {
+        await this.initialize();
+      }
+      this.storage.get(this.getPrefix(key))
+      .then((data) => {
         resolve(data);
-      }).catch(error => {
+      })
+      .catch(error => {
         reject(error);
       });
     });
   }
 
   /**
-   * Clear keys of an item on localStorage.
+   * Check item with a key on local Database driver.
+   * @param key
+   * @returns
+   */
+  async hasKeys(key) {
+    if(!this.storage) {
+      await this.initialize();
+    }
+    const val = await this.storage.get(this.getPrefix(key))
+    return val ? true : false;
+  }
+
+  /**
+   * Remove item from local Database driver.
    * @param key
    */
-  clearKeys(key) {
-    this.storage.remove(this.getPrefix(key));
+  async removeKeys(key) {
+    await this.storage.remove(this.getPrefix(key));
+  }
+
+  /**
+   * Clear keys of an item on local Database driver.
+   * @param key
+   */
+  async clearKeys() {
+    await this.storage.clear();
+  }
+
+  /**
+   * Set item on localStorage with prefix.
+   * @param key
+   * @param val
+   */
+  localSet(key, val) {
+    localStorage.setItem(this.getPrefix(key), val);
+  }
+
+  /**
+   * Get item localStorage with prefix.
+   * @param key
+   */
+  localGet(key) {
+    return localStorage.getItem(this.getPrefix(key));
+  }
+
+  localHas(key) {
+    let item = this.localGet(key);
+    if(item && item !== null && item !== 'null' && typeof item !== 'undefined') {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Remove item on localStorage with prefix.
+   * @param key
+   */
+  localRemove(key) {
+    localStorage.removeItem(this.getPrefix(key));
+  }
+
+  /**
+   * Clear localStorage with prefix.
+   */
+  localClear() {
+    localStorage.clear();
   }
 }
