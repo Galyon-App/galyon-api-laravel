@@ -1,20 +1,45 @@
-#container {
-  text-align: center;
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
+.main_div {
+  padding: 20px 15px 10px;
+  background: var(--ion-color-primary);
+
+  .user_img {
+    height: 70px;
+    width: 70px;
+    min-width: 70px;
+    border-radius: 50%;
+    border: 2px solid white;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: relative;
+    margin: auto;
+  }
+
+  .username {
+    margin: 0px;
+    margin-top: 10px;
+    font-size: medium;
+    font-weight: bold;
+    color: white;
+  }
+
+  .email {
+    margin: 0px;
+    margin-bottom: 10px;
+    font-size: small;
+    color: white;
+  }
 }
 
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
+.options {
+  padding: 10px;
 
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-  color: var(--ion-color-dark-shade);
-  margin: 0;
+  ion-item {
+    height: 60px;
+    display: flex;
+    ion-icon {
+      color: var(--ion-color-primary);
+      font-size: 22px;
+    }
+  }
 }

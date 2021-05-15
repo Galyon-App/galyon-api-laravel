@@ -1,6 +1,79 @@
-<ion-content [fullscreen]="true">
-  <div id="container">
-    <strong>Account Tab</strong>
-    <p>Account Page</p>
+<ion-content>
+  <div class="main_div">
+    <ion-row>
+      <ion-col size="4">
+        <div class="user_img" [ngStyle]="{'background-image':'url('+getProfile()+'),url(assets/images/user.png)'}">
+        </div>
+      </ion-col>
+      <ion-col size="8">
+        <p class="username">{{getName()}}</p>
+        <p class="email">{{getEmail()}}</p>
+        <ion-button (click)="editProfile()" shape="round" size="small" color="light">
+          {{util.getString('Logout')}}
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+
+  <div class="options">
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="editProfile()">
+      <ion-icon name="person-outline" slot="start"></ion-icon>
+      <ion-label>{{util.getString('Edit Profile')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="myOrder()">
+      <ion-icon name="bag-outline" slot="start"></ion-icon>
+      <ion-label>{{util.getString('Orders')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="myFavorite()">
+      <ion-icon name="heart-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Favourite')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="myAddress()">
+      <ion-icon name="location-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Address')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appSupport()">
+      <ion-icon name="chatbubbles-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Support')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appContact()">
+      <ion-icon name="mail-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Contact Us')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appFaqs()">
+      <ion-icon name="flag-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('FAQ')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appAbout()">
+      <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('About')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appHelp()">
+      <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Help')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="logout()">
+      <ion-icon name="power-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Log Out')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
   </div>
 </ion-content>
