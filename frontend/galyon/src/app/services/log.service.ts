@@ -10,21 +10,21 @@ export class LogService {
 
   }
 
-  debug(data) {
+  debug(data, title='') {
     if(!environment.production) {
-      console.log(data);
+      console.log({ title: title, data:data });
     }
   }
 
-  warn(data) {
+  warn(data, title='') {
     if(!environment.production) {
-      console.warn(data);
+      console.warn({ title: title, data:data });
     }
   }
 
-  error(data) {
+  error(data, title='') {
     if(!environment.production) {
-      console.error(data);
+      console.error({ title: title, data:data });
     }
   }
 }
