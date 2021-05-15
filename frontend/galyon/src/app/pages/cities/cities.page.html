@@ -1,0 +1,24 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title class="ion-text-center"> {{util.getString('Select City')}} </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <p *ngIf="!cities?.length" class="ion-text-center"> {{util.getString('No Cities Found')}} </p>
+  <ion-list>
+    <ion-radio-group [(ngModel)]="uuid">
+      <ion-item *ngFor="let item of cities">
+        <ion-label>{{item.name}}</ion-label>
+        <ion-radio [value]="item.uuid" mode="md"></ion-radio>
+      </ion-item>
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" *ngIf="cities.length && uuid">
+    <ion-fab-button (click)="selected()">
+      <ion-icon name="checkmark" *ngIf="!isBusy"></ion-icon>
+      <ion-spinner name="circles" *ngIf="isBusy"></ion-spinner>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

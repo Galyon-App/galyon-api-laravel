@@ -13,12 +13,12 @@ import { FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { HTTP } from '@ionic-native/http/ngx';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-import { IonicStorageModule } from '@ionic/storage';
 import { AndroidPermissions } from '@ionic-native/android-permissions/ngx';
 import { Diagnostic } from '@ionic-native/diagnostic/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { InAppBrowser } from '@ionic-native/in-app-browser/ngx';
 import { FormsModule } from '@angular/forms';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 import { JwtModule } from "@auth0/angular-jwt";
 export function tokenGetter() {
@@ -51,7 +51,9 @@ import { environment } from 'src/environments/environment';
 
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, // auth
-    AngularFireAnalyticsModule // analytics
+    AngularFireAnalyticsModule, // analytics
+
+    IonicStorageModule.forRoot()
   ],
   providers: [
     StatusBar,
