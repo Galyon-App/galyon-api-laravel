@@ -8,7 +8,7 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class CategoryComponent implements OnInit {
 
-  dummy: any[] = Array(10);
+  dummy: any[] = Array(7);
   categories: any[] = [];
 
   constructor(
