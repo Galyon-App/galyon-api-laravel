@@ -1,0 +1,11 @@
+ion-toolbar {
+  height: 49px;
+}
+
+ion-thumbnail {
+  display: inherit;
+  .menu-logo {
+    height: 30px;
+    width: min-content;
+  }
+}
