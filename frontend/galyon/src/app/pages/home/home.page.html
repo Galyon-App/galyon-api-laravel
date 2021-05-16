@@ -4,4 +4,14 @@
   <app-banner></app-banner>
   <app-category></app-category>
   <app-topstore></app-topstore>
+  <div class="main_content">
+    <div class="cateLbl">
+      <ion-label class="all"> {{util.getString('Stores in the Area')}} </ion-label>
+    </div>
+    <div class="infinity">
+      <div *ngFor="let item of dummy" style="margin: 0px 10px;">
+        <ion-skeleton-text animated style="width: 100%; height: 120px; margin-top: 5px;"></ion-skeleton-text>
+      </div>
+    </div>
+  </div>
 </ion-content>

@@ -8,7 +8,7 @@ import { UtilService } from 'src/app/services/util.service';
 })
 export class TopstoreComponent implements OnInit {
 
-  dummy: any[] = Array(5);
+  dummy: any[] = Array(3);
   stores: any[] = [];
   slideOpts = {
     slidesPerView: 1.5,
