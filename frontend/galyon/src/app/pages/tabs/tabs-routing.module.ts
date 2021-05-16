@@ -96,6 +96,15 @@ const routes: Routes = [
     loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
   },
   {
+    path: 'about/:page',
+    children: [
+      {
+        path: '',
+        loadChildren: () => import('../about/about.module').then( m => m.AboutPageModule)
+      }
+    ]
+  },
+  {
     path: '**',
     redirectTo: 'notfound'
   }

@@ -44,7 +44,7 @@
 
     <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appSupport()">
       <ion-icon name="chatbubbles-outline" slot="start"></ion-icon>
-      <ion-label> {{util.getString('Support')}} </ion-label>
+      <ion-label> {{util.getString('Chat Support')}} </ion-label>
       <ion-ripple-effect type="unbounded"></ion-ripple-effect>
     </ion-item>
 
@@ -55,8 +55,8 @@
     </ion-item>
 
     <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appFaqs()">
-      <ion-icon name="flag-outline" slot="start"></ion-icon>
-      <ion-label> {{util.getString('FAQ')}} </ion-label>
+      <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('FAQs')}} </ion-label>
       <ion-ripple-effect type="unbounded"></ion-ripple-effect>
     </ion-item>
 
@@ -66,8 +66,20 @@
       <ion-ripple-effect type="unbounded"></ion-ripple-effect>
     </ion-item>
 
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appPrivacy()">
+      <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Privacy')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
+    <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appTerms()">
+      <ion-icon name="information-circle-outline" slot="start"></ion-icon>
+      <ion-label> {{util.getString('Terms')}} </ion-label>
+      <ion-ripple-effect type="unbounded"></ion-ripple-effect>
+    </ion-item>
+
     <ion-item lines="none" detail="" class="ion-activatable ripple-parent" (click)="appHelp()">
-      <ion-icon name="help-circle-outline" slot="start"></ion-icon>
+      <ion-icon name="information-circle-outline" slot="start"></ion-icon>
       <ion-label> {{util.getString('Help')}} </ion-label>
       <ion-ripple-effect type="unbounded"></ion-ripple-effect>
     </ion-item>

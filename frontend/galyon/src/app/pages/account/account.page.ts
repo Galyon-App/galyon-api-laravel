@@ -54,20 +54,28 @@ export class AccountPage implements OnInit {
     //Do something
   }
 
+  appTerms() {
+    this.router.navigate(['about/terms']);
+  }
+
+  appPrivacy() {
+    this.router.navigate(['about/privacy']);
+  }
+
   appContact() {
-    //Do something
+    this.router.navigate(['about/contact']);
   }
 
   appAbout() {
-    //Do something
+    this.router.navigate(['about/index']);
   }
 
   appFaqs() {
-    //Do something
+    this.router.navigate(['about/faqs']);
   }
 
   appHelp() {
-    //Do something
+    this.router.navigate(['about/help']);
   }
 
   appSupport() {
