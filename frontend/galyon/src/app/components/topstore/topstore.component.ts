@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-topstore',
@@ -7,8 +8,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TopstoreComponent implements OnInit {
 
-  constructor() { }
+  dummy: any[] = Array(5);
+  stores: any[] = [];
+  slideOpts = {
+    slidesPerView: 1.5,
+  };
+
+  constructor(
+    public util: UtilService
+  ) { }
 
   ngOnInit() {}
+
+  goToStore() {
+
+  }
+
+  openStore(store) {
+
+  }
 
 }
