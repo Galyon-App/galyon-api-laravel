@@ -12,8 +12,7 @@ export class CityGuard implements CanActivate {
   constructor(
     private router: Router,
     private menuController: MenuController,
-    private user: UserService,
-    private util: UtilService
+    private user: UserService
   ) { }
 
   canActivate(

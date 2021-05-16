@@ -5,6 +5,7 @@ import { UtilService } from 'src/app/services/util.service';
 import { CartService } from 'src/app/services/cart.service';
 import { LogService } from 'src/app/services/log.service';
 import { UserService } from 'src/app/services/user.service';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-cities',
@@ -12,9 +13,9 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./cities.page.scss'],
 })
 export class CitiesPage {
-  cities: any[] = [];
-  uuid: any; //current city
-  isBusy: boolean;
+  public cities: any[] = [];
+  private uuid: any; //current city
+  private isBusy: boolean;
 
   constructor(
     public api: ApiService,
@@ -22,9 +23,11 @@ export class CitiesPage {
     private navCtrl: NavController,
     public cart: CartService,
     public log: LogService,
-    private user: UserService
+    private user: UserService,
   ) {
     this.getCities();
+
+
   }
 
   getCities() {
@@ -35,7 +38,7 @@ export class CitiesPage {
       this.util.hideBusy();
       if (response && response.data.length) {
         this.cities = response.data;
-        this.util.setKeys('cities', this.cities)
+        this.util.setKeys('cities', this.cities);
       } else {
         this.util.showMessage(this.util.getString('No Cities Found'));
       }
@@ -51,6 +54,8 @@ export class CitiesPage {
     const city = this.cities.find(x => x.uuid === this.uuid);
     this.user.setCurrentCity(city);
     this.cart.clearCart();
-    this.navCtrl.navigateRoot(['']);
+
+    let navCity: NavigationExtras = { state: { city: city } };
+    this.navCtrl.navigateRoot(['/home'], navCity);
   }
 }

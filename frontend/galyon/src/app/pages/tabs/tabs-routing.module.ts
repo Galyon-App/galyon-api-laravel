@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { NotfoundPage } from '../notfound/notfound.page';
+import { AuthGuard } from 'src/app/guard/auth.guard';
+import { CityGuard } from 'src/app/guard/city.guard';
 
 import { TabsPage } from './tabs.page';
 
@@ -15,6 +16,7 @@ const routes: Routes = [
       },
       {
         path: 'home',
+        canActivate: [CityGuard],
         children: [
           {
             path: '',
@@ -25,6 +27,7 @@ const routes: Routes = [
       },
       {
         path: 'message',
+        canActivate: [CityGuard, AuthGuard],
         children: [
           {
             path: '',
@@ -35,6 +38,7 @@ const routes: Routes = [
       },
       {
         path: 'cart',
+        canActivate: [CityGuard],
         children: [
           {
             path: '',
@@ -45,6 +49,7 @@ const routes: Routes = [
       },
       {
         path: 'order',
+        canActivate: [CityGuard, AuthGuard],
         children: [
           {
             path: '',
@@ -55,6 +60,7 @@ const routes: Routes = [
       },
       {
         path: 'account',
+        canActivate: [CityGuard, AuthGuard],
         children: [
           {
             path: '',
@@ -68,6 +74,22 @@ const routes: Routes = [
         loadChildren: () => import('../notfound/notfound.module').then(m => m.NotfoundPageModule)
       },
     ]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('../login/login.module').then( m => m.LoginPageModule)
+  },
+  {
+    path: 'reset',
+    loadChildren: () => import('../reset/reset.module').then( m => m.ResetPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('../register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: 'cities',
+    loadChildren: () => import('../cities/cities.module').then(m => m.CitiesPageModule)
   },
   {
     path: '**',

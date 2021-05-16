@@ -6,33 +6,30 @@ import { UtilService } from 'src/app/services/util.service'
   providedIn: 'root'
 })
 export class AuthService {
+  constructor(
+    private util: UtilService
+  ) { }
 
   get uuid(): string {
-    return localStorage.getItem(this.util.getPrefix('uuid'));
+    return this.util.localGet('uuid');
   }
+
   set uuid(value: string) {
-    localStorage.setItem(this.util.getPrefix('uuid'), value);
+    this.util.localSet('uuid', value);
   }
 
   get token(): string {
-    return localStorage.getItem(this.util.getPrefix('token'));
+    return this.util.localGet('token');
   }
+
   set token(value: string) {
-    localStorage.setItem(this.util.getPrefix('token'), value);
+    this.util.localSet('token', value);
   }
 
   get isLoggedIn(): boolean {
-    let curUuid = localStorage.getItem(this.util.getPrefix('uuid'));
-    let curToken = localStorage.getItem(this.util.getPrefix('token'));
-
-    if (curUuid && curUuid != null && curUuid !== 'null' && typeof curUuid !== 'undefined'
-      && curToken && curToken != null && curToken !== 'null' && typeof curToken !== 'undefined') {
+    if (this.util.localHas('uuid') && this.util.localHas('token')) {
       return true;
     }
     return false;
   }
-
-  constructor(
-    private util: UtilService
-  ) { }
 }

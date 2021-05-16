@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { environment } from 'src/environments/environment';
 import { LogService } from 'src/app/services/log.service';
 import { JwtHelperService } from "@auth0/angular-jwt";
+import { UtilService } from 'src/app/services/util.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +14,8 @@ export class ApiService {
   baseUrl: any = '';
   constructor(
     private http: HttpClient,
-    private log: LogService
+    private log: LogService,
+    private util: UtilService
   ) {
     this.baseUrl = environment.baseURL;
   }
@@ -43,7 +45,7 @@ export class ApiService {
 
   post(path, body, is_url_encode=false) {
 
-    let token = localStorage.getItem('user-token');
+    let token = this.util.localGet('token');
     const options = { headers: new HttpHeaders() }
       let contentType = is_url_encode ? 'x-www-form-urlencoded' : 'application/json';
       options.headers.append('Content-Type', 'application/'+contentType);

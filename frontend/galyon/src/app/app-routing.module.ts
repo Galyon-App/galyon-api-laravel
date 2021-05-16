@@ -6,16 +6,15 @@ import { CityGuard } from './guard/city.guard';
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule),
-    canActivate: [CityGuard]
+    loadChildren: () => import('./pages/tabs/tabs.module').then( m => m.TabsPageModule)
   },
   {
     path: 'home',
-    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule),
+    loadChildren: () => import('./pages/login/login.module').then( m => m.LoginPageModule)
   },
   {
     path: 'reset',
@@ -27,8 +26,9 @@ const routes: Routes = [
   },
   {
     path: 'cities',
-    loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule),
-  },  {
+    loadChildren: () => import('./pages/cities/cities.module').then( m => m.CitiesPageModule)
+  },
+  {
     path: 'notfound',
     loadChildren: () => import('./pages/notfound/notfound.module').then( m => m.NotfoundPageModule)
   },
