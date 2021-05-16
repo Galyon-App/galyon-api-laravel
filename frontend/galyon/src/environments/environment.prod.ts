@@ -1,6 +1,9 @@
+import { version } from '../../package.json';
+
 export const environment = {
   production: true,
   appName: 'Galyon',
+  appVersion: version,
   baseURL: 'https://api.galyon.app',
   appPrefix: 'galyon_',
   firebase: {
