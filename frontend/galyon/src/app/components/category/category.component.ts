@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UtilService } from 'src/app/services/util.service';
 
 @Component({
   selector: 'app-category',
@@ -7,8 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CategoryComponent implements OnInit {
 
-  constructor() { }
+  dummy: any[] = Array(10);
+  categories: any[] = [];
+
+  constructor(
+    public util: UtilService
+  ) { }
 
   ngOnInit() {}
+
+  goToCategory() {
+
+  }
+
+  goToSubCategory(category) {
+
+  }
 
 }
