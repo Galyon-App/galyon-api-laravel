@@ -5,10 +5,12 @@ import { IonicModule } from '@ionic/angular';
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { BannerComponent } from './banner/banner.component';
+import { CategoryComponent } from './category/category.component';
 
 const components = [
   HeaderComponent,
-  BannerComponent
+  BannerComponent,
+  CategoryComponent
 ];
 @NgModule({
     declarations: [
