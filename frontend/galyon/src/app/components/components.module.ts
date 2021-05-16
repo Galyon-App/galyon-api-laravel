@@ -4,9 +4,11 @@ import { IonicModule } from '@ionic/angular';
 
 import { FormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
+import { BannerComponent } from './banner/banner.component';
 
 const components = [
   HeaderComponent,
+  BannerComponent
 ];
 @NgModule({
     declarations: [

@@ -1,0 +1,11 @@
+<ion-slides pager="true" [options]="slideOpts" #boardingSlider>
+  <ion-slide *ngFor="let s of sliderInstance.slidesItems">
+    <div class="images">
+      <img src="{{s.url}}">
+    </div>
+    <div>
+      <h2>{{s.title}}</h2>
+      <p>{{s.body}}</p>
+    </div>
+  </ion-slide>
+</ion-slides>
