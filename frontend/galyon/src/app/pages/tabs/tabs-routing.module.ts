@@ -105,6 +105,10 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'boarding',
+    loadChildren: () => import('../boarding/boarding.module').then( m => m.BoardingPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'notfound'
   }

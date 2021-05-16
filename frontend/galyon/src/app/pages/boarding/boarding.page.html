@@ -1,0 +1,15 @@
+<ion-content>
+  <ion-slides pager="true" [options]="slideOpts" #boardingSlider (ionSlideReachEnd)="onSlideEnd()"
+    (ionSlidePrevEnd)="onTransitionEnd(false)" (ionSlideNextEnd)="onTransitionEnd(true)">
+    <ion-slide *ngFor="let s of sliderInstance.slidesItems">
+      <div class="images">
+        <img src="assets/images/boarding-{{s.id}}.png">
+      </div>
+      <div>
+        <h2>{{s.title}}</h2>
+        <p>{{s.body}}</p>
+      </div>
+    </ion-slide>
+  </ion-slides>
+  <button (click)="skip()" id="skip">{{ skipMsg }}</button>
+</ion-content>
