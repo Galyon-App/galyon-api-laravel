@@ -1,5 +1,6 @@
 export const environment = {
   production: true,
+  appName: 'Galyon',
   baseURL: 'https://api.galyon.app',
   appPrefix: 'galyon_',
   firebase: {

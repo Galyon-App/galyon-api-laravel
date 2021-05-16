@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  appName: 'Galyon',
   baseURL: 'http://localhost:8000',
   appPrefix: 'galyon_',
   firebase: {
