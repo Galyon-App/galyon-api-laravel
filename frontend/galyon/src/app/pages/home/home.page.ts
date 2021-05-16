@@ -43,4 +43,8 @@ export class HomePage {
   changeCity() {
     this.router.navigate(['/cities']);
   }
+
+  search() {
+    this.router.navigate(['/search']);
+  }
 }

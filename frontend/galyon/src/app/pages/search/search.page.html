@@ -1,0 +1,13 @@
+<ion-content>
+  <!-- Searchbar with cancel button always shown -->
+  <ion-searchbar showCancelButton="show" placeholder="Search..." (ionCancel)="onCancel()"></ion-searchbar>
+  <ion-list>
+    <ion-item>
+      <ion-thumbnail slot="start">
+        <div class="user_img" [ngStyle]="{'background-image':'url('+'),url(assets/images/product.png)'}">
+        </div>
+      </ion-thumbnail>
+      <ion-label>Store/Product Name</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

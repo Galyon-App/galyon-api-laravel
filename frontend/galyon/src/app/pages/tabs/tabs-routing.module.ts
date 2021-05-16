@@ -92,6 +92,10 @@ const routes: Routes = [
     loadChildren: () => import('../cities/cities.module').then(m => m.CitiesPageModule)
   },
   {
+    path: 'search',
+    loadChildren: () => import('../search/search.module').then( m => m.SearchPageModule)
+  },
+  {
     path: '**',
     redirectTo: 'notfound'
   }

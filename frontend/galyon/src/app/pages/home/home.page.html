@@ -1,19 +1,25 @@
 <ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-row>
-      <ion-col size="5" style="text-align: center;">
+      <ion-col size="4" style="text-align: center;">
         <ion-thumbnail>
           <img src="assets/images/logo.png" class="menu-logo">
         </ion-thumbnail>
       </ion-col>
-      <ion-col size="7">
-        <ion-title (click)="changeCity()" style="text-align: right;">
+      <ion-col size="6">
+        <ion-title (click)="changeCity()" style="text-align: right; padding-right: 0;">
           <div class="ion-activatable" *ngIf="city && city.name">
             <ion-icon name="location" style="font-size: medium; padding-right: 5px;"></ion-icon>
             <ion-text style="font-size:medium;">{{ city.name }}</ion-text>
             <ion-ripple-effect type="bounded"></ion-ripple-effect>
           </div>
         </ion-title>
+      </ion-col>
+      <ion-col size="2" style="text-align: center;">
+        <div class="ion-activatable" (click)="search()">
+          <ion-icon name="search" style="font-size: large;"></ion-icon>
+          <ion-ripple-effect type="bounded"></ion-ripple-effect>
+        </div>
       </ion-col>
     </ion-row>
   </ion-toolbar>
