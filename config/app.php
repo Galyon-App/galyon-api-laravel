@@ -187,6 +187,11 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /**
+         * Laravel Modules
+         */
+        Nwidart\Modules\LaravelModulesServiceProvider::class,
+
     ],
 
     /*
@@ -239,7 +244,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-
+        'Module' => Nwidart\Modules\Facades\Module::class,
     ],
 
 ];
